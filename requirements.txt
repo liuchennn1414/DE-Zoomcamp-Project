@@ -1,0 +1,24 @@
+dlt 
+python 
+requests 
+
+-- google cloud auth 
+curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-460.0.0-linux-x86_64.tar.gz
+tar -xf google-cloud-cli-460.0.0-linux-x86_64.tar.gz
+./google-cloud-sdk/install.sh
+# test download 
+gcloud --version 
+# export credentials 
+export GOOGLE_APPLICATION_CREDENTIALS="/home/chenchen/.gc/my-creds.json"
+# authentification 
+gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
+# test access 
+gsutil ls gs://de-zoomcamp-project-453801-terra-bucket
+# export projectID variable
+export CREDENTIALS__PROJECT_ID="de-zoomcamp-project-453801"
+
+export DESTINATION__FILESYSTEM__CREDENTIALS__CLIENT_EMAIL="your-client-email@project.iam.gserviceaccount.com"
+export DESTINATION__FILESYSTEM__CREDENTIALS__PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
+export DESTINATION__FILESYSTEM__CREDENTIALS__PROJECT_ID="your-project-id"
+
+pip install "dlt[gs]"
