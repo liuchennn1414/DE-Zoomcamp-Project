@@ -19,7 +19,7 @@ if not ACCESS_KEY:
 
 
 # Extract raw data, auto normalization and Load data into GCP Bucket
-@dlt.resource(name="stock_full_refresh", write_disposition="replace")
+@dlt.resource(name="stock", write_disposition="replace")
 def extract_raw_full_refresh(date_from, date_to):
     client = RESTClient(
         base_url=API_URL,
@@ -38,7 +38,7 @@ def extract_raw_full_refresh(date_from, date_to):
     ):
         yield page
 
-def main(date_from, date_to,mode):
+def main(date_from, date_to):
     # Load credentials from JSON file
     with open("/home/chenchen/.gc/my-creds.json") as f:
         credentials = json.load(f)
@@ -54,27 +54,20 @@ def main(date_from, date_to,mode):
     )
 
     # Run the pipeline with the new resource
-    if mode == "full_refresh": 
-        load_info = pipeline.run(
-            extract_raw_full_refresh(date_from, date_to),  # Pass date_from and date_to to the resource
-            write_disposition="replace",
-            loader_file_format="csv"
-        )
-        print(load_info)
-    elif mode == "incremental": 
-        print("Incremental load currently not available")
-    else: 
-        print("Only incremental load and full refresh are supported")
+    load_info = pipeline.run(
+        extract_raw_full_refresh(date_from, date_to),  # Pass date_from and date_to to the resource
+        write_disposition="replace",
+        loader_file_format="csv"
+    )
+    print(load_info)
+
         
-
-
 if __name__ == '__main__':
     # Set up command-line argument parsing
     parser = argparse.ArgumentParser(description='Ingest CSV compressed data to GCP')
     parser.add_argument('--date_from', required=True, help='Start date for the query (YYYY-MM-DD)')
     parser.add_argument('--date_to', required=True, help='End date for the query (YYYY-MM-DD)')
-    parser.add_argument('--mode', required=True, help='Load Mode (incremental / full_refresh')
     args = parser.parse_args()
 
     # Call the main function with the parsed arguments
-    main(args.date_from, args.date_to,args.mode)
+    main(args.date_from, args.date_to)
