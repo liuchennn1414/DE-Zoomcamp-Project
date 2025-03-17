@@ -62,7 +62,7 @@ def main(initial_value):
     # Run the pipeline with the new resource
     load_info = pipeline.run(
             extract_raw_incremental, 
-            loader_file_format="csv"
+            loader_file_format="csv.gz" # data is compressed? 
     )
     print(load_info)
 
