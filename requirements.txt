@@ -29,6 +29,9 @@ https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/se
 connect to GCP 
 wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar
 cp gcs-connector-hadoop3-latest.jar $SPARK_HOME/jars/
+cp gcs-connector-hadoop3-latest.jar /home/chenchen/DE-Zoomcamp-Project/spark_transformation/
+wget https://storage.googleapis.com/spark-lib/bigquery/spark-bigquery-latest_2.12.jar
+cp spark-bigquery-latest_2.12.jar /home/chenchen/DE-Zoomcamp-Project/spark_transfor/ation/
 
 mkdir ~/hadoop-conf
 nano ~/hadoop-conf/core-site.xml -- copy the config file in 
