@@ -50,19 +50,22 @@ def main(initial_value):
         credentials = json.load(f)
 
     # Initialize filesystem client
+    # file_date = datetime.now().strftime("%Y-%m-%d")
+    # custom_filename = f"stock_data_{file_date}.csv.gz"  
+
     gcp_bucket = filesystem(GCP_URL, credentials=credentials)
 
     # Define the pipeline
     pipeline = dlt.pipeline(
         pipeline_name="marketstack_pipeline",
         destination=gcp_bucket,  # Set the destination to GCS
-        dataset_name='stock_dataset'
+        dataset_name='stock_dataset_prod'
     )
 
     # Run the pipeline with the new resource
     load_info = pipeline.run(
             extract_raw_incremental, 
-            loader_file_format="csv.gz" # data is compressed? 
+            loader_file_format="csv" # data is compressed? 
     )
     print(load_info)
 
