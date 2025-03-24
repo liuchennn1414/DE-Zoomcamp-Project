@@ -1,0 +1,8 @@
+aiohttp
+pandas 
+datetime
+asyncio
+argparse
+json 
+airflow.providers.google.cloud.hooks.gcs
+from google.cloud import storage
