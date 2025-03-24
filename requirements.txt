@@ -1,54 +1,5 @@
--- for dlt pipeline config 
-export CREDENTIALS__PROJECT_ID="dxxx"
-export DESTINATION__FILESYSTEM__CREDENTIALS__CLIENT_EMAIL="xxx"
-export DESTINATION__FILESYSTEM__CREDENTIALS__PRIVATE_KEY="/home/chenchen/.ssh/gcp"
-export GOOGLE_APPLICATION_CREDENTIALS="/home/chenchen/.gc/my-creds.json"
-export API_ACCESS_KEY="xxxxxxxx"
-pip install "dlt[gs]"
-
-
--- google cloud auth 
-curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-460.0.0-linux-x86_64.tar.gz
-tar -xf google-cloud-cli-460.0.0-linux-x86_64.tar.gz
-./google-cloud-sdk/install.sh
-# test download 
-gcloud --version 
-# export credentials 
-export GOOGLE_APPLICATION_CREDENTIALS="/home/xxx/.gc/my-creds.json"
-# authentification 
-gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS
-# test access 
-gsutil ls gs://xxx
-# export projectID variable
-
--- set up spark 
-https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md
-connect to GCP 
-wget https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar
-cp gcs-connector-hadoop3-latest.jar $SPARK_HOME/jars/
-cp gcs-connector-hadoop3-latest.jar /home/chenchen/DE-Zoomcamp-Project/spark_transformation/
-wget https://storage.googleapis.com/spark-lib/bigquery/spark-bigquery-latest_2.12.jar
-cp spark-bigquery-latest_2.12.jar /home/chenchen/DE-Zoomcamp-Project/spark_transfor/ation/
-
-mkdir ~/hadoop-conf
-nano ~/hadoop-conf/core-site.xml -- copy the config file in 
-export HADOOP_CONF_DIR=~/hadoop-conf
-echo 'export HADOOP_CONF_DIR=~/hadoop-conf' >> ~/.bashrc
-source ~/.bashrc
-
-pip install google-cloud-bigquery
-pip install google-cloud-bigquery-storage
-
-python 
-requests 
-
-spark-submit \
-    --jars /path/to/gcs-connector-hadoop3-latest.jar,/path/to/spark-bigquery-latest_2.12.jar \
-    --conf spark.hadoop.fs.gs.impl=com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem \
-    --conf spark.hadoop.google.cloud.auth.service.account.enable=true \
-    --conf spark.hadoop.google.cloud.auth.service.account.json.keyfile=config/my-creds.json \
-    spark_transformation/transformation.py
-
-
-airflow in docker: 
-https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html
+requests
+pyspark==3.5.0
+google-cloud-storage
+pandas
+aiohttp

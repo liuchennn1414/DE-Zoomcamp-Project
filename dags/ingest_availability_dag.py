@@ -107,7 +107,7 @@ dag = DAG(
     'ingest_availability_dag',
     default_args=default_args,
     description='A DAG to ingest carpark availability data',
-    schedule_interval='0 2 * * *',  # Run daily
+    schedule_interval='0 3 * * *',  # Run daily
     catchup=False,  # Enable backfill
 )
 

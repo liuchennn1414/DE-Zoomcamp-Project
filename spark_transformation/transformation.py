@@ -9,12 +9,16 @@ from pyspark.sql.types import DateType
 from pyspark.sql.functions import to_date
 
 # start a spark session 
+# spark = SparkSession.builder \
+#     .appName("Data_Transformation") \
+#     .config("spark.hadoop.fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
+#     .config("spark.jars", "gcs-connector-hadoop3-latest.jar,spark-bigquery-latest_2.12.jar") \
+#     .config("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
+#     .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "/home/chenchen/.gc/my-creds.json") \
+#     .getOrCreate()
+
 spark = SparkSession.builder \
     .appName("Data_Transformation") \
-    .config("spark.hadoop.fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
-    .config("spark.jars", "gcs-connector-hadoop3-latest.jar,spark-bigquery-latest_2.12.jar") \
-    .config("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
-    .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "/home/chenchen/.gc/my-creds.json") \
     .getOrCreate()
 
 # carpark master information 
