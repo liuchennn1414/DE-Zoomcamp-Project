@@ -36,7 +36,7 @@ def fetch_and_upload_carpark_info():
 # --------------------------
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 1, 1),
+    'start_date': datetime.today(),
     'retries': 1,
 }
 

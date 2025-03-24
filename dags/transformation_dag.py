@@ -23,7 +23,7 @@ dag = DAG(
     'carpark_transformation_dag',
     default_args=default_args,
     description='DAG to process carpark data and load to BigQuery',
-    schedule_interval='@daily',  # Runs daily
+    schedule_interval='10 3 * * *',  # Runs daily
     catchup=False,
     max_active_runs=1,
     tags=['spark', 'bigquery']

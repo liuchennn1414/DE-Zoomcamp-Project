@@ -77,7 +77,7 @@ async def ingest_availability(start_date, end_date, time_of_day="09:00:00"):
 # --------------------------
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 1, 1),
+    'start_date': datetime.today(),
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
 }
@@ -108,7 +108,7 @@ dag = DAG(
     default_args=default_args,
     description='A DAG to ingest carpark availability data',
     schedule_interval='0 3 * * *',  # Run daily
-    catchup=False,  # Enable backfill
+    catchup=True,  # Enable backfill
 )
 
 ingest_task = PythonOperator(
