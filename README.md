@@ -1,9 +1,9 @@
 # DE-Zoomcamp-Project
 
-## Problem Description: Singapore HDB Carpark Utilization Analysis 
+## Problem Description: Singapore HDB Carpark Utilization Analysis 
 The effective utilization of Housing & Developemtn Board (HDB) car parks is crucial for efficient urban mobility and resource management in Singapore. However, varying utilization rates across different car park types, fluctuations in weekly usage trends, and inconsistent slot availability present challenges in optimizing space allocation in this concise island. This project aims to analyze daily, weekly and monthly HDB car park utilization patterns, identify peak and underutilized periods, potentially provide data-driven recommendations to improve parking efficiency, reduce congestion, and enhance user experience.
 
-## Data Source
+## Data Source
 The project use open data source provided by Singapore government in data.gov.sg. For simplicity, the project use 2 main data source: 
 1. **Carpark Information**. This is a static csv updated monthly containing master information about carpark data, such as carpark location, type and other properties. 
  ```
@@ -55,10 +55,3 @@ The pipeline is still very naive. Here are some next step:
     a. Look into HDB rent / selling price
     b. Look into expanding this carpark app into a real time api project since the api is available for real time access 
 5. Use other API, which could potentially require authentication and use of tools like dlt
-
-## Implementation Journal 
-1. Set up gitrepo and Project on GCP 
-2. Set up VM on GCP with docker, anaconda, terraform downloaded. Cloned gitrepo into VM  
-3. Set up Terraform which can be used to create google cloud bucket and bigquery dataset 
-4. dlt data pipeline (full refresh & delta load both implemented)
-5. 
