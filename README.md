@@ -28,10 +28,15 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
 - **Data Warehouse**: 
     - **Google BigQuery**: Stored processed data.  
     - **Partitioning & Clustering**: Optimized using **date-based partitions** for better query performance.  This step is done as part of spark transformation. 
+    -- need to justify why used partition, else change accordingly 
 
 - **Spark Data Transformation**: 
     - **Apache Spark**: Used for **batch processing** and data transformation.  
+    - need to describe the transformation 
     - **Airflow Orchestration**: Ensures transformations run **daily** after data ingestion.  
+
+- **Airflow**: 
+    - to give an description for how I use airflow 
 
 ## Dashboard 
 - You can access the dashbaord with this link: [Carpark Availability Dashboard](https://lookerstudio.google.com/s/tTT2DmQAzzU)
