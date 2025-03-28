@@ -1,11 +1,6 @@
-variable "credentials" {
-    description = "My Credentials"
-    default = "./keys/my-creds.json"
-}
-
-variable "project" {
-  description = "Project"
-  default = "de-zoomcamp-project-453801"
+variable "GOOGLE_PROJECT_ID" {
+  description = "GOOGLE_PROJECT_ID"
+  type        = string
 }
 
 variable "region" {
@@ -18,14 +13,14 @@ variable "location" {
   default = "EU"
 }
 
-variable "bq_dataset_name" {
+variable "GOOGLE_BQ_DATASET" {
   description = "My BigQuery Dataset Name"
-  default = "demo_dataset"
+  type        = string
 }
 
-variable "gcs_bucket_name" {
+variable "GOOGLE_BUCKET_NAME" {
   description = "My Storage Bucket Name"
-  default = "de-zoomcamp-project-453801-terra-bucket"
+  type        = string
 }
 
 variable "gcs_storage_class" {
