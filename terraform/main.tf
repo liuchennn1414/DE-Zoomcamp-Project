@@ -9,13 +9,12 @@ terraform {
 
 provider "google" {
   # Configuration options
-#   credentials = file(var.credentials)
-  project = var.project
+  project = var.GOOGLE_PROJECT_ID
   region  = var.region
 }
 
-resource "google_storage_bucket" "demo-bucket" {
-  name          = var.gcs_bucket_name
+resource "google_storage_bucket" "test-bucket" {
+  name          = var.GOOGLE_BUCKET_NAME
   location      = var.location
   force_destroy = true
 
@@ -29,8 +28,8 @@ resource "google_storage_bucket" "demo-bucket" {
   }
 }
 
-resource "google_bigquery_dataset" "demo_dataset" {
-  dataset_id = var.bq_dataset_name
+resource "google_bigquery_dataset" "test_dataset" {
+  dataset_id = var.GOOGLE_BQ_DATASET
   location = var.location
 
 }
