@@ -8,11 +8,12 @@ import asyncio
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.models import Variable
+import os 
 
 # Constants
 API_URL = "https://api.data.gov.sg/v1/transport/carpark-availability"
-BUCKET_NAME = "de-zoomcamp-project-453801-terra-bucket"
-KEY_PATH = "config/my-creds.json"  # Ensure this path is correct
+BUCKET_NAME = os.getenv("GOOGLE_BUCKET_NAME") # must be your own bucket name 
+KEY_PATH = "config/google-credential.json"  
 
 # Function to fetch carpark availability data
 async def fetch_carpark_availability(session, date_time):

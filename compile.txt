@@ -1,0 +1,54 @@
+# print a message: download anoconda 
+wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+bash Anaconda3-2024.10-1-Linux-x86_64.sh
+# you will need to read and accept the lisence here 
+# activate anaconda 
+source .bashrc 
+# print a message: anoconda installed and activated 
+
+# print a message: download docker 
+sudo apt-get update 
+sudo apt-get install docker.io
+sudo gpasswd -a $USER docker 
+sudo groupadd docker 
+sudo service docker restart 
+
+# log out 
+source .bashrc 
+
+mkdir bin 
+wget https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -O docker-compose 
+chmod +x docker-compose 
+export PATH="${HOME}/bin:${PATH}" # make this persistent since we not doing nano bashrc 
+source .bashrc 
+
+# set up terraform 
+cd bin 
+wget https://releases.hashicorp.com/terraform/1.1.3/terraform_1.1.3_linux_amd64.zip 
+sudo apt-get install unzip 
+unzip terraform_1.1.3_linux_amd64.zip 
+rm terraform_1.1.3_linux_amd64.zip 
+
+# copy credential into VM 
+locally cd to .ssh/ 
+sftp de-zoomcamp 
+mkdir .gc 
+cd .gc 
+put google-credentials.json 
+
+# Google authentification
+export GOOGLE_APPLICATION_CREDENTIALS=~/.gc/google_credentials.json 
+gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+
+# create resources with terraform 
+cd DE-Zoomcamp-Project 
+terraform init 
+terraform apply 
+
+# running the project 
+cd DE-Zoomcamp-Project 
+docker-compose up airflow init 
+docker-compose up 
+
+# to shut down and delete all created resources: 
+terraform destroy 

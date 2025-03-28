@@ -7,6 +7,7 @@ from pyspark.sql.functions import col, expr, to_timestamp, date_format, trunc, l
 from pyspark.sql import functions as F
 from pyspark.sql.types import DateType
 from pyspark.sql.functions import to_date
+import os 
 
 # start a spark session 
 # spark = SparkSession.builder \
@@ -14,25 +15,29 @@ from pyspark.sql.functions import to_date
 #     .config("spark.hadoop.fs.gs.impl", "com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem") \
 #     .config("spark.jars", "gcs-connector-hadoop3-latest.jar,spark-bigquery-latest_2.12.jar") \
 #     .config("spark.hadoop.google.cloud.auth.service.account.enable", "true") \
-#     .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "/home/chenchen/.gc/my-creds.json") \
+#     .config("spark.hadoop.google.cloud.auth.service.account.json.keyfile", "/home/chenchen/.gc/google-credential.json") \
 #     .getOrCreate()
 
 spark = SparkSession.builder \
     .appName("Data_Transformation") \
     .getOrCreate()
 
+gcs_bucket = os.getenv("GOOGLE_BUCKET_NAME")
+bq_project = os.getenv("GOOGLE_PROJECT_ID")
+bq_dataset = os.getenv("GOOGLE_BQ_DATASET")
+
 # carpark master information 
 carpark_info = spark.read \
     .option("header", "true") \
     .option("inferSchema", "true") \
-    .csv("gs://de-zoomcamp-project-453801-terra-bucket/carpark_info/CarparkInformation.csv") 
+    .csv(f"gs://{gcs_bucket}/carpark_info/CarparkInformation.csv") 
 
 
 # daily detail 
 carpark_details = spark.read \
     .option("header", "true") \
     .option("inferSchema", "true") \
-    .csv("gs://de-zoomcamp-project-453801-terra-bucket/carpark_data/*.csv") 
+    .csv(f"gs://{gcs_bucket}/carpark_data/*.csv") 
 
 
 # convert time format 
@@ -65,25 +70,24 @@ utilization_by_region = utilization_by_region.withColumn("year_month", to_date(c
 # Upload transformed files into bigquery 
 utilization_by_region.write \
     .format("bigquery") \
-    .option("temporaryGcsBucket", "de-zoomcamp-project-453801-terra-bucket") \
-    .option("table", "de-zoomcamp-project-453801.demo_dataset.utilization_by_region") \
+    .option("temporaryGcsBucket", gcs_bucket) \
+    .option("table", f"{bq_project}.{bq_dataset}.utilization_by_region") \
     .option("partitionField", "year_month") \
     .mode("overwrite") \
     .save()
 
-
 carpark_details.write \
     .format("bigquery") \
-    .option("temporaryGcsBucket", "de-zoomcamp-project-453801-terra-bucket") \
-    .option("table", "de-zoomcamp-project-453801.demo_dataset.carpark_details") \
+    .option("temporaryGcsBucket", gcs_bucket) \
+    .option("table", f"{bq_project}.{bq_dataset}.carpark_details") \
     .option("partitionField", "timestamp") \
     .mode("overwrite") \
     .save()
 
 carpark_df.write \
     .format("bigquery") \
-    .option("temporaryGcsBucket", "de-zoomcamp-project-453801-terra-bucket") \
-    .option("table", "de-zoomcamp-project-453801.demo_dataset.carpark_data") \
+    .option("temporaryGcsBucket", gcs_bucket) \
+    .option("table", f"{bq_project}.{bq_dataset}.carpark_data") \
     .option("partitionField", "timestamp") \
     .mode("overwrite") \
     .save()

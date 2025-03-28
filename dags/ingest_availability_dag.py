@@ -7,13 +7,14 @@ import aiohttp
 import pandas as pd
 from google.cloud import storage
 import json
+import os 
 
 # --------------------------
-# Data Ingestion Logic (previously in ingest_availability.py)
+# Data Ingestion Logic 
 # --------------------------
 API_URL = "https://api.data.gov.sg/v1/transport/carpark-availability"
-BUCKET_NAME = "de-zoomcamp-project-453801-terra-bucket"
-KEY_PATH = "config/my-creds.json"  # Ensure this path is correct
+BUCKET_NAME = os.getenv("GOOGLE_BUCKET_NAME") 
+KEY_PATH = "config/google-credential.json"  # Ensure this path is correct
 
 async def fetch_carpark_availability(session, date_time):
     """Fetch carpark availability data for a specific date and time."""

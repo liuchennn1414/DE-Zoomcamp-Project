@@ -33,10 +33,10 @@ dag = DAG(
 spark_job = BashOperator(
     task_id='run_spark_job',
     bash_command='spark-submit \
-        --jars $SPARK_HOME/jars/gcs-connector-hadoop3-latest.jar,$SPARK_HOME/jars/spark-bigquery-with-dependencies_2.12-0.28.0.jar \
+        --jars $SPARK_HOME/jars/gcs-connector-hadoop3-latest.jar,$SPARK_HOME/jars/spark-bigquery-latest_2.12.jar \
         --conf spark.hadoop.fs.gs.impl=com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystem \
         --conf spark.hadoop.google.cloud.auth.service.account.enable=true \
-        --conf spark.hadoop.google.cloud.auth.service.account.json.keyfile=/opt/airflow/config/my-creds.json \
+        --conf spark.hadoop.google.cloud.auth.service.account.json.keyfile=/opt/airflow/config/google-credential.json \
         /opt/airflow/spark_transformation/transformation.py',
     dag=dag
 )

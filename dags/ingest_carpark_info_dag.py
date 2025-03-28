@@ -5,9 +5,10 @@ import requests
 import pandas as pd
 from google.cloud import storage
 import json
+import os 
 
 # --------------------------
-# Data Ingestion Logic (previously in ingest_carpark_info.py)
+# Data Ingestion Logic 
 # --------------------------
 def fetch_and_upload_carpark_info():
     # Fetch data from API
@@ -18,8 +19,8 @@ def fetch_and_upload_carpark_info():
     df = pd.DataFrame(data)
 
     # Upload to GCS
-    BUCKET_NAME = "de-zoomcamp-project-453801-terra-bucket"
-    KEY_PATH = "config/my-creds.json"  # Ensure this path is correct
+    BUCKET_NAME = os.getenv("GOOGLE_BUCKET_NAME") 
+    KEY_PATH = "config/google-credential.json"  # Ensure this path is correct
 
     csv_data = df.to_csv(index=False)
     destination_blob_name = "carpark_info/CarparkInformation.csv"

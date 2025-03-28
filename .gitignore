@@ -1,0 +1,12 @@
+google-cloud-sdk/
+google-cloud-*
+dlt/.dlt/
+.ipynb_checkpoints
+data/
+lib/
+*.jar
+*.csv
+*.json
+logs/
+__pycache__/
+plugins/
