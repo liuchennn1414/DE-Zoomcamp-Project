@@ -27,12 +27,13 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
 
 - **Data Warehouse**: 
     - **Google BigQuery**: Stored processed data.  
-    - **Partitioning & Clustering**: Optimized using **date-based partitions** for better query performance.  This step is done as part of spark transformation. 
-    -- need to justify why used partition, else change accordingly 
+    - **Partitioning & Clustering**: Optimized using **date-based partitions** for better query performance. Reason is, the data consist of *all* Sinagpore carpark information for each day, hence data volume for each day could be large -- especially if in future we have more than just 9am data but for every hour in the day. Even though the data size is smaller now which means clustering will work too, date based partition (by date / by month, depends on which table) is more ideal considering future volume of the dataset could be huge. This step is done as part of spark transformation. 
 
 - **Spark Data Transformation**: 
     - **Apache Spark**: Used for **batch processing** and data transformation.  
-    - need to describe the transformation 
+        - carpark_details: Combine all daily carpark availability information under into one single dataframe. 
+        - carpark_df: Join carpark_details with the master carpark information data, to show more details of carpark type, location etc. 
+        - utilization_by_region: Performed a groupby on carpark_df to compute average utilization rate per region and time period (year month, and day of week). 
     - **Airflow Orchestration**: Ensures transformations run **daily** after data ingestion.  
 
 - **Airflow**: 
@@ -48,6 +49,10 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
 - You can access the dashbaord with this link: [Carpark Availability Dashboard](https://lookerstudio.google.com/s/tTT2DmQAzzU)
 - or view the dashboard here: 
 ![Alt text](assets/dashboard.jpg)
+- Observation:  
+    1. Majority of the Singapore HDB carpark type are surface carpark. However, basement carpark has a higher utilization rate. This could be correlated to the year that the HDB was built and the population of that cluster (usually, surface carpark are for HDB built earlier before 21st century, with majority of the residents being elderlies who does not own car. Basement carpark are  rare for HDB, but usually for newly estabished ones with a younger resident portfolio).
+    2. It makes sense that over the weekends, utilization rate are usually lower, as people might choose to go for short trips. 
+     
 
 
 ## Reproducability 
@@ -134,11 +139,11 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
     Take note if you face permissin denied issue, you can rerun the 2 docker setup bash script one more time. 
 
     This will create the airflow image with all necessary packages (spark, python, aiohttp etc.) for you.  
-    7. Open up another terminal and run docker ps. You should see 6 containers running with status = 'healthy'. Once it is healthy status, you should also see the port being automatically forwarded to your local host. 
-        - Go to[localhost:8080](localhost:8080)
-        - Sign in to airflow with both username & password = airflow.  
-        - Activate the 4 dags there. (See picture below which 4 dags). 
-        - If you are triggering the task manually, make sure you trigger the transformation_dag the last as it requires the data to be inside your GCP bucket first. 
+    7. Open up another terminal and run docker ps. You should see 6 containers running with status = 'healthy'. Once they are all at healthy status, you should also see the port being automatically forwarded to your local host.  
+    - Go to [localhost:8080](localhost:8080)
+    - Sign in to airflow with both username & password = airflow.  
+    - Activate the 4 dags there. (See picture below which 4 dags). 
+    - Make sure you trigger the transformation_dag the last as it requires the data to be inside your GCP bucket first. 
     ![Alt text](assets/airflow.jpg)
 
 ## Next Step of improvement 
@@ -151,3 +156,4 @@ The pipeline is still very naive. Here are some next step:
     b. Look into expanding this carpark app into a real time api project since the api is available for real time access 
 5. Use other API, which could potentially require authentication and use of tools like dlt
 6. Automate the initial set up with makefile / shell script. Set up the VM with terraform to better utilize the power of IaC. 
+7. Create VM with terraform, too. 
