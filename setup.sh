@@ -9,7 +9,7 @@ handle_error() {
 
 # Function to pause script at the end
 pause_script() {
-    read -p "✅ Setup complete! Press any key to exit..." key
+    read -p "✅ Setup1 completed! Please proceed with setup2. Press any key to exit..." key
 }
 
 # # Download and install Anaconda (not needed)
@@ -30,34 +30,8 @@ echo "✅ Docker installed!"
 echo "🔧 Configuring Docker..."
 sudo gpasswd -a $USER docker || handle_error
 sudo usermod -aG docker $USER || handle_error
-newgrp docker || handle_error 
-sudo service docker restart || handle_error
-echo "🔧 Testing Connection..."
-docker run hello-world || handle_error
-echo "✅ Docker configured!"
-
-# Install Docker Compose
-echo "📦 Installing Docker Compose..."
-mkdir -p $HOME/bin
-wget -q https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64 -O $HOME/bin/docker-compose || handle_error
-chmod +x $HOME/bin/docker-compose || handle_error
-echo "✅ Docker Compose installed!"
-
-# Update PATH
-echo "🔄 Updating PATH..."
-echo 'export PATH="${HOME}/bin:${PATH}"' >> ~/.bashrc
-source .bashrc || handle_error
-echo "✅ PATH updated!"
-
-# Download Terraform 
-echo "Download Terraform..."
-cd bin 
-wget https://releases.hashicorp.com/terraform/1.1.3/terraform_1.1.3_linux_amd64.zip 
-sudo apt-get install unzip 
-unzip terraform_1.1.3_linux_amd64.zip 
-rm terraform_1.1.3_linux_amd64.zip 
-echo "✅ Terraform installed!"
-
+echo "Docker has been configured."
+newgrp docker
 
 # Final pause before exit
 pause_script
