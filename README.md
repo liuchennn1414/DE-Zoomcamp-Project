@@ -76,46 +76,69 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
         ```
         git clone https://github.com/liuchennn1414/DE-Zoomcamp-Project.git
         ```
-    2. In your terminal, ensure you are at the **root** directory, do: 
+    2. We will set up terraform first. In your terminal, ensure you are at the **root** directory, do: 
         ```
-        chmod +x ~/DE-Zoomcamp-Project/setup.sh
+        chmod +x ~/DE-Zoomcamp-Project/setup/terraform-setup.sh
         ``` 
         Followed by: 
         ```
-        bash ~/DE-Zoomcamp-Project/setup.sh
+        bash ~/DE-Zoomcamp-Project/setup/terraform-setup.sh
         ```
-        This will help you automatically set up everything you need for Docker and download Terraform. 
-        **Logout and login again to enable the set up.**
-    3. You need to update your environment variable with your own project detail. To do so, go to .env file and update your project id and bucket name. Once you are done with that, run: 
-        ```
-        source .env 
-        ``` 
-        to export these environment variables. 
-    4. Next, you need to set up Terraform to create the necessary GCP Resources (Bucket & Bigquery). 
-        - Copy your json credential into VM 
+        This will help you automatically download Terraform. 
+    3. You need to update your environment variable with your own project detail. 
+        - Firstly, let's copy your credential into the VM:     
             - locally, cd to the directory containing your credential 
             - sftp to your vm 
             - mkdir .gc
             - cd .gc 
             - put google-credential.json 
-        - Remember to authenticate GCP: 
+        - Back to your VM, go to .env file, update your project id and bucket name. 
+        - Once you are done with that, run: 
+            ```
+            source .env 
+            ``` 
+            to export these environment variables. 
+        - authenticate GCP: 
             ```
             gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
             ```
-        - Finally, you can do the following to create the GCP resources: 
+
+    4. We will then use Terraform to create the necessary GCP Resources (Bucket & Bigquery). 
+
             ```
             cd DE-Zoomcamp-Project/terraform
+
             terraform init 
+
             terraform plan 
+
             terraform apply 
             ```
-    4. You are all set. cd to the project repo and start the project with the following command: 
+    5. Next, we will download docker, and set up airflow. 
+        ```
+        chmod +x ~/DE-Zoomcamp-Project/setup/docker-setup.sh
+        chmod +x ~/DE-Zoomcamp-Project/setup/docker-setup2.sh
+        chmod +x ~/DE-Zoomcamp-Project/setup/airflow-setup.sh
+        ``` 
+        Followed by: 
+        ```
+        bash ~/DE-Zoomcamp-Project/setup/docker-setup.sh
+        bash ~/DE-Zoomcamp-Project/setup/docker-setup2.sh
+        bash ~/DE-Zoomcamp-Project/setup/airflow-setup.sh
+        ```
+    6. You are all set. cd to the project repo and start the project with the following command: 
     ```
     docker-compose up airflow-init
     docker-compose up 
     ```  
+    Take note if you face permissin denied issue, you can rerun the 2 docker setup bash script one more time. 
+
     This will create the airflow image with all necessary packages (spark, python, aiohttp etc.) for you.  
-    5. Open up another terminal and run docker ps. You should see 6 containers running with status = 'health'. Once it is healthy status, you should also see the port being automatically forwarded to your local host. Sign in into airflow with both username & password = airflow. View the airflow jobs in [localhost:8080](localhost:8080) and activate the 4 dags there. (See above which 4 dags). If you are triggering the task manually, make sure you trigger the transformation_dag the last as it requires the data to be inside your GCP bucket first. 
+    7. Open up another terminal and run docker ps. You should see 6 containers running with status = 'healthy'. Once it is healthy status, you should also see the port being automatically forwarded to your local host. 
+        - Go to[localhost:8080](localhost:8080)
+        - Sign in to airflow with both username & password = airflow.  
+        - Activate the 4 dags there. (See picture below which 4 dags). 
+        - If you are triggering the task manually, make sure you trigger the transformation_dag the last as it requires the data to be inside your GCP bucket first. 
     ![Alt text](assets/airflow.jpg)
 
 ## Next Step of improvement 
