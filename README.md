@@ -81,15 +81,17 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
         ```
         git clone https://github.com/liuchennn1414/DE-Zoomcamp-Project.git
         ```
-    2. We will set up terraform first. In your terminal, ensure you are at the **root** directory, do: 
+    2. In your terminal, ensure you are at the **root** directory, do: 
         ```
-        chmod +x ~/DE-Zoomcamp-Project/setup/terraform-setup.sh
+        chmod +x ~/DE-Zoomcamp-Project/docker-setup.sh
+        chmod +x ~/DE-Zoomcamp-Project/docker-setup2.sh
         ``` 
         Followed by: 
         ```
-        bash ~/DE-Zoomcamp-Project/setup/terraform-setup.sh
+        bash ~/DE-Zoomcamp-Project/docker-setup.sh
+        bash ~/DE-Zoomcamp-Project/docker-setup2.sh
         ```
-        This will help you automatically download Terraform. 
+        This will help you automatically download Docker and Terraform. 
     3. You need to update your environment variable with your own project detail. 
         - Firstly, let's copy your credential into the VM:     
             - locally, cd to the directory containing your credential 
@@ -121,14 +123,10 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
             ```
     5. Next, we will download docker, and set up airflow. 
         ```
-        chmod +x ~/DE-Zoomcamp-Project/setup/docker-setup.sh
-        chmod +x ~/DE-Zoomcamp-Project/setup/docker-setup2.sh
         chmod +x ~/DE-Zoomcamp-Project/setup/airflow-setup.sh
         ``` 
         Followed by: 
         ```
-        bash ~/DE-Zoomcamp-Project/setup/docker-setup.sh
-        bash ~/DE-Zoomcamp-Project/setup/docker-setup2.sh
         bash ~/DE-Zoomcamp-Project/setup/airflow-setup.sh
         ```
     6. You are all set. cd to the project repo and start the project with the following command: 
