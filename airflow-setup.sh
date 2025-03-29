@@ -7,8 +7,9 @@ pause_script() {
 
 
 echo "🔄 Preparing for airflow ..."
-cd DE-Zoomcamp-Project
+cd ~/DE-Zoomcamp-Project
 mkdir -p ./logs ./plugins ./config
+sudo chown -R $USER:$USER ./config
 cp ~/.gc/google-credential.json ./config 
 echo "✅ Preperation Done!"
 
