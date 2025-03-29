@@ -139,7 +139,7 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
 
     This will create the airflow image with all necessary packages (spark, python, aiohttp etc.) for you.  
     7. Open up another terminal and run docker ps. You should see 6 containers running with status = 'healthy'. Once they are all at healthy status, you should also see the port being automatically forwarded to your local host.  
-    - Go to [localhost:8080](localhost:8080)
+    - Go to [localhost:8080](localhost:8080) once you see the port has been forwarded 
     - Sign in to airflow with both username & password = airflow.  
     - Activate the 4 dags there. (See picture below which 4 dags). 
     - Make sure you trigger the transformation_dag the last as it requires the data to be inside your GCP bucket first. 
