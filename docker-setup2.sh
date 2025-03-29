@@ -28,17 +28,18 @@ echo "✅ Docker Compose installed!"
 
 # Update PATH
 echo "🔄 Updating PATH..."
-echo 'export PATH="${HOME}/bin:${PATH}"' >> ~/.bashrc
-source .bashrc || handle_error
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc || handle_error
 echo "✅ PATH updated!"
 
 # Download Terraform 
 echo "Download Terraform..."
-cd bin 
+cd $HOME/bin 
 wget https://releases.hashicorp.com/terraform/1.1.3/terraform_1.1.3_linux_amd64.zip 
 sudo apt-get install unzip 
 unzip terraform_1.1.3_linux_amd64.zip 
 rm terraform_1.1.3_linux_amd64.zip 
+chmod +x $HOME/bin/terraform || handle_error
 echo "✅ Terraform installed!"
 
 

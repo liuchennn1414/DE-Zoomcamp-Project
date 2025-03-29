@@ -84,11 +84,12 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
     2. In your terminal, ensure you are at the **root** directory, do: 
         ```
         chmod +x ~/DE-Zoomcamp-Project/docker-setup.sh
-        chmod +x ~/DE-Zoomcamp-Project/docker-setup2.sh
+        bash ~/DE-Zoomcamp-Project/docker-setup.sh
+        newgrp docker
         ``` 
         Followed by: 
         ```
-        bash ~/DE-Zoomcamp-Project/docker-setup.sh
+        chmod +x ~/DE-Zoomcamp-Project/docker-setup2.sh
         bash ~/DE-Zoomcamp-Project/docker-setup2.sh
         ```
         This will help you automatically download Docker and Terraform. 
@@ -123,11 +124,11 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
             ```
     5. Next, we will download docker, and set up airflow. 
         ```
-        chmod +x ~/DE-Zoomcamp-Project/setup/airflow-setup.sh
+        chmod +x ~/DE-Zoomcamp-Project/airflow-setup.sh
         ``` 
         Followed by: 
         ```
-        bash ~/DE-Zoomcamp-Project/setup/airflow-setup.sh
+        bash ~/DE-Zoomcamp-Project/airflow-setup.sh
         ```
     6. You are all set. cd to the project repo and start the project with the following command: 
     ```
