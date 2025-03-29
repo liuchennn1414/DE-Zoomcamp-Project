@@ -81,7 +81,7 @@ Housing & Development Board. (2018). Carpark Availability (2023) [Dataset]. data
         ```
         git clone https://github.com/liuchennn1414/DE-Zoomcamp-Project.git
         ```
-    2. In your terminal, ensure you are at the **root** directory, do: 
+    2. In your terminal, (I recommend you to use VSCode to open the git repo :)), do: 
         ```
         chmod +x ~/DE-Zoomcamp-Project/docker-setup.sh
         bash ~/DE-Zoomcamp-Project/docker-setup.sh
